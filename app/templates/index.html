@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+    background-image: url('https://images.unsplash.com/photo-1592210454359-9043f067919b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input{
+    padding: 10px;
+    width: 250px;
+    border: 1px ;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    background-color: beige;
+    /* border: 2px solid red; */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 450px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.card h1{
+    text-align: center;
+    color: darkcyan;
+    text-decoration: underline;
+}
+
+.sub-card {
+    background-color: beige;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.7); 
+}
+.sub-card h2{
+    text-decoration: underline;
+    color: darkcyan;
+}
+
+</style>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="city" id="">
+        <button type="submit">SEARCH</button>
+    </form>
+    {% if weather %}
+    <div class="card">
+        <h1>Current Weather</h1>
+        <p><strong>City:</strong> {{ weather.city }}</p>
+        <p><strong>Temperature:</strong> {{ weather.temperature }}</p>
+        <p><strong>Wind:</strong> {{ weather.wind }}</p>
+        <p><strong>Description:</strong> {{ weather.description }}</p>
+    </div>
+    <div>
+        {% for i in weather.forecast %}
+        <div class="sub-card">
+            <h2>Day {{ i.day }}</h2>
+            <p><strong>Temperature:</strong> {{ i.temperature|default:"N/A" }}</p>
+            <p><strong>Wind:</strong> {{ weather.wind }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>
